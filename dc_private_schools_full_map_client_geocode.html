@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>DC Private Schools Map – Full List</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css"/>
+<script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+<style>
+html,body,#map{height:100%;margin:0;}
+.label-box{
+background:white;border:1px solid #555;border-radius:3px;padding:2px 4px;font-size:10px;
+white-space:nowrap;box-shadow:1px 1px 2px rgba(0,0,0,.3);transform:translate(14px,-6px);}
+.legend{position:fixed;bottom:30px;left:30px;background:white;padding:6px;border:2px solid grey;font-size:13px;z-index:9999;}
+</style>
+</head><body>
+<div id="map"></div>
+<div class="legend"><b>Legend</b><br><span style='color:blue;'>&#9679;</span> School pin & label</div>
+<script>
+var map=L.map('map').setView([38.9072,-77.0369],12);
+L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{attribution:'©OpenStreetMap, ©CartoDB'}).addTo(map);
+var geocoder=L.Control.Geocoder.nominatim();
+var schools=[['Acton Academy of Washington DC','1739 N St NW, Washington, DC 20036'],['Aidan Montessori School','2700 27th St NW, Washington, DC 20008'],['Annunciation Catholic School','3810 Massachusetts Ave NW, Washington, DC 20016'],['Archbishop Carroll High School','4301 Harewood Rd NE, Washington, DC 20017'],['Ashreinu School for Girls','5200 16th St NW, Washington, DC 20011'],['Bishop John T. Walker School for Boys','1801 Mississippi Ave SE, Washington, DC 20020'],['Blessed Sacrament School','5841 Chevy Chase Pkwy NW, Washington, DC 20015'],['British International School of Washington','2001 Wisconsin Ave NW, Washington, DC 20007'],['Broad Branch Children\'s House','5608 Broad Branch Rd NW, Washington, DC 20015'],['Capitol Hill Day School','210 South Carolina Ave SE, Washington, DC 20003'],['Capitol Learning Academy','301 G St SW, Washington, DC 20024'],['Christian Family Montessori School','201 Allison St NW, Washington, DC 20011'],['Cornerstone Schools – Washington','1101 50th Pl NE, Washington, DC 20019'],['District Montessori','3023 14th St NW, Washington, DC 20009'],['Edmund Burke School','4101 Connecticut Ave NW, Washington, DC 20008'],['Franklin Montessori School','2701 Wisconsin Ave NW, Washington, DC 20007'],['Fusion Academy Washington DC','3007 Tilden St NW, Washington, DC 20008'],['Georgetown Day School','4200 Davenport St NW, Washington, DC 20016'],['Georgetown Montessori School','1522 28th St NW, Washington, DC 20007'],['Georgetown Visitation Preparatory School','1524 35th St NW, Washington, DC 20007'],['Gonzaga College High School','19 I St NW, Washington, DC 20001'],['Holy Trinity School','1325 36th St NW, Washington, DC 20007'],['Kennedy Institute','801 Buchanan St NE, Washington, DC 20017'],['Kirov Academy of Washington DC','4301 Harewood Rd NE, Washington, DC 20017'],['Living Word Christian School','4100 9th St NW, Washington, DC 20011'],['Lowell School','1640 Kalmia Rd NW, Washington, DC 20012'],['Maret School','3000 Cathedral Ave NW, Washington, DC 20008'],['Milton Gottesman Jewish Day School','6045 16th St NW, Washington, DC 20011'],['Model Secondary School for the Deaf','800 Florida Ave NE, Washington, DC 20002'],['Montessori School of Chevy Chase','3132 Jennings Rd NW, Washington, DC 20008'],['Muhammad University of Islam','1519 Islamic Way NE, Washington, DC 20002'],['MYSA School','1405 North Capitol St NW, Washington, DC 20002'],['National Presbyterian School','4121 Nebraska Ave NW, Washington, DC 20016'],['New Beginnings Vocational Program','8401 Good Hope Ct SE, Washington, DC 20032'],['Our Lady of Victory School','4755 Whitehaven Pkwy NW, Washington, DC 20007'],['River School','4880 MacArthur Blvd NW, Washington, DC 20007'],['Sacred Heart School','1625 Park Rd NW, Washington, DC 20010'],['Sheridan School','4400 36th St NW, Washington, DC 20008'],['Sidwell Friends School','3825 Wisconsin Ave NW, Washington, DC 20016'],['Smithsonian Early Enrichment Center','300 4th St SW, Washington, DC 20560'],['St. Anselm\'s Abbey School','4501 South Dakota Ave NE, Washington, DC 20017'],['St. Anthony Catholic School','3400 12th St NE, Washington, DC 20017'],['St. Augustine Catholic School','1421 V St NW, Washington, DC 20009'],['St. Francis Xavier Catholic Academy','2700 O St SE, Washington, DC 20020'],['St. John\'s College High School','2607 Military Rd NW, Washington, DC 20015'],['St. Patrick\'s Episcopal Day School','4700 Whitehaven Pkwy NW, Washington, DC 20007'],['St. Peter School','422 3rd St SE, Washington, DC 20003'],['St. Thomas More Catholic Academy','4265 4th St SE, Washington, DC 20032'],['Templeton Academy DC','406 7th St NW, Washington, DC 20004'],['The Field School','2301 Foxhall Rd NW, Washington, DC 20007'],['The French Maternal School','2202 18th St NW, Washington, DC 20009'],['The Monroe School','601 50th St NE, Washington, DC 20019'],['The Preparatory School of DC','1603 16th St NW, Washington, DC 20009'],['Washington International School','3100 Macomb St NW, Washington, DC 20008'],['Washington Jesuit Academy','900 Varnum St NE, Washington, DC 20017'],['Washington School for Girls','1604 Morris Rd SE, Washington, DC 20020'],['Waterfront Academy','60 I St SW, Washington, DC 20024'],['Whittle School & Studios','3400 International Dr NW, Washington, DC 20008']];
+
+function placeNext(i){
+ if(i>=schools.length) return;
+ var s=schools[i];
+ geocoder.geocode(s[1],function(res){
+   if(res && res.length){
+     var c=res[0].center;
+     L.marker(c,{icon:L.icon({iconUrl:'https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/images/marker-icon.png',
+                              shadowUrl:'https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/images/marker-shadow.png'})}).addTo(map);
+     L.marker(c,{icon:L.divIcon({className:'',html:'<div class="label-box">'+s[0]+'</div>'})}).addTo(map);
+   }
+   setTimeout(function(){placeNext(i+1);},300);
+ });
+}
+placeNext(0);
+</script></body></html>
